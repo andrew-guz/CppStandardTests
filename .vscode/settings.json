@@ -1,5 +1,6 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
+    "testMate.cpp.test.executables": "${workspaceFolder}/bin/tests/*",
     "files.associations": {
         "cctype": "cpp",
         "clocale": "cpp",
