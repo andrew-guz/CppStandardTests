@@ -3,7 +3,7 @@
 | modules | - | - | - |
 | ranges | +/- | - | + |
 | coroutines | +/- | - | + |
-| concepts | - | - | - |
+| concepts | + | + | + |
 | jthread | + | - | + |
 | semaphore | - | - | - |
 | spaceship operator (tree-way comparision) <=> | +/- | - | - |
