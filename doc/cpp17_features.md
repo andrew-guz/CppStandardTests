@@ -15,3 +15,4 @@
 | template class type deduction | + | - | + |
 | folding for variadic templates | + | - | + |
 | if, switch initialization | + | - | +/- |
+| string_view | + | + | + |
