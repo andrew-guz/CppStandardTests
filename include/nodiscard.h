@@ -6,36 +6,23 @@
 Also applicable for enums and classes.
 */
 
-namespace NodiscardTest
-{
-    [[nodiscard]] int checkSomething()
-    {
-        return -1;
-    }
+namespace NodiscardTest {
+    [[nodiscard]] int checkSomething() { return -1; }
 
-    struct [[nodiscard]] ErrorDescription
-    {
+    struct [[nodiscard]] ErrorDescription {
         int _code;
         std::string _message;
     };
 
-    ErrorDescription checkAnotherThing()
-    {
-        return { -1, "some error" };
-    }
-};
+    ErrorDescription checkAnotherThing() { return {-1, "some error"}; }
+}; // namespace NodiscardTest
 
-class Nodiscard : public TestBase
-{
+class Nodiscard : public TestBase {
 public:
-    virtual const char* Name() const override
-    {
-        return "nodiscard";
-    }
+    virtual const char* Name() const override { return "nodiscard"; }
 
 protected:
-    virtual void TestImpl() override
-    {
+    virtual void TestImpl() override {
         NodiscardTest::checkSomething();
         NodiscardTest::checkAnotherThing();
     }

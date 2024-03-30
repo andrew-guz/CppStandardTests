@@ -1,62 +1,45 @@
 #pragma once
 
-#include <string>
 #include <iostream>
+#include <string>
 
 template<typename T>
-void SpecialPrint(const T& value)
-{
+void SpecialPrint(const T& value) {
     std::cout << value << std::endl;
 }
 
 template<>
-void SpecialPrint(const std::string& value)
-{
+void SpecialPrint(const std::string& value) {
     std::cout << "'" << value << "'" << std::endl;
 }
 
-class SpecialPrintClassWithTemplateFunction
-{
+class SpecialPrintClassWithTemplateFunction {
 public:
     template<typename T>
-    static void SpecialPrint(const T& value)
-    {
+    static void SpecialPrint(const T& value) {
         std::cout << value << std::endl;
-    }   
+    }
 };
 
 template<>
-void SpecialPrintClassWithTemplateFunction::SpecialPrint(const std::string& value)
-{
+void SpecialPrintClassWithTemplateFunction::SpecialPrint(const std::string& value) {
     std::cout << "'" << value << "'" << std::endl;
 }
 
 template<typename T>
-class SpecialPrintTemplateClass
-{
+class SpecialPrintTemplateClass {
 public:
-    SpecialPrintTemplateClass(const T& value) :
-        _value(value)
-    {
+    SpecialPrintTemplateClass(const T& value) : _value(value) {}
 
-    }
+    void SpecialPrint() { SpecialPrint(_value); }
 
-    void SpecialPrint()
-    {
-        SpecialPrint(_value);
-    }
-
-    static void SpecialPrint(const T& value)
-    {
-        std::cout << value << std::endl;
-    }
+    static void SpecialPrint(const T& value) { std::cout << value << std::endl; }
 
 private:
     T _value;
 };
 
 template<>
-void SpecialPrintTemplateClass<std::string>::SpecialPrint(const std::string& value)
-{
+void SpecialPrintTemplateClass<std::string>::SpecialPrint(const std::string& value) {
     std::cout << "'" << value << "'" << std::endl;
 }

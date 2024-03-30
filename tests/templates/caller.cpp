@@ -1,37 +1,27 @@
 #include "../catch.hpp"
 
 #include <iostream>
-#include <utility>
 #include <string>
+#include <utility>
 
-struct A
-{
+struct A {
     void f1() {}
 
-    int f2(int i)
-    {
-        return i;
-    }
+    int f2(int i) { return i; }
 };
 
-struct B
-{
+struct B {
     void f1() {}
 
-    std::string f2(const std::string& str) const
-    {
-        return str;
-    }
+    std::string f2(const std::string& str) const { return str; }
 };
 
 template<typename T, typename Fp, typename... Args>
-auto call(T& t, Fp fp, Args&&... args)
-{
+auto call(T& t, Fp fp, Args&&... args) {
     return (t.*fp)(std::forward<Args>(args)...);
 }
 
-TEST_CASE("Caller variadic template")
-{
+TEST_CASE("Caller variadic template") {
     A a;
 
     call(a, &A::f1);

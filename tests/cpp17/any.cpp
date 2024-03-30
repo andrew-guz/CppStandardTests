@@ -5,14 +5,12 @@
 
 using namespace std::string_literals;
 
-class A
-{
+class A {
 private:
     std::string _value;
 };
 
-TEST_CASE("Has value")
-{
+TEST_CASE("Has value") {
     std::any a;
     REQUIRE_FALSE(a.has_value());
     a = 5;
@@ -21,29 +19,24 @@ TEST_CASE("Has value")
     REQUIRE(i == 5);
     a.reset();
     REQUIRE_FALSE(a.has_value());
-    a = A {};
+    a = A{};
     REQUIRE(a.has_value());
 }
 
 template<typename T>
-T convert(const std::any& a, bool should_be_converted)
-{
-    try
-    {
+T convert(const std::any& a, bool should_be_converted) {
+    try {
         auto value = std::any_cast<T>(a);
         REQUIRE(should_be_converted);
         return value;
-    }
-    catch(...)
-    {
+    } catch (...) {
         REQUIRE_FALSE(should_be_converted);
         return {};
     }
 }
 
-TEST_CASE("Conversion")
-{
-    std::any a = 5;    
+TEST_CASE("Conversion") {
+    std::any a = 5;
     convert<std::string>(a, false);
     convert<float>(a, false);
     a = "Hello";

@@ -2,12 +2,11 @@
 
 #include "templates/variadic.h"
 
-#include <vector>
-#include <memory>
 #include <cstring>
+#include <memory>
+#include <vector>
 
-class TestBase
-{
+class TestBase {
 public:
     TestBase() = default;
 
@@ -15,8 +14,7 @@ public:
 
     virtual const char* Name() const = 0;
 
-    void Test()
-    {
+    void Test() {
         std::cout << "---" << Name() << "---" << std::endl;
         TestImpl();
         std::cout << "------" << std::endl;
@@ -26,33 +24,28 @@ protected:
     virtual void TestImpl() = 0;
 };
 
-class Tests final
-{
+class Tests final {
 protected:
     Tests() = default;
 
 public:
-    static Tests& instance()
-    {
+    static Tests& instance() {
         static Tests s_instance;
         return s_instance;
     }
 
     template<typename T>
-    void RegisterTest()
-    {
+    void RegisterTest() {
         _tests.emplace_back(new T());
     }
 
-    void RunAll()
-    {
-        for(auto& test : _tests)
+    void RunAll() {
+        for (auto& test : _tests)
             test->Test();
     }
 
-    void RunExact(const char* name)
-    {
-        for(auto& test : _tests)
+    void RunExact(const char* name) {
+        for (auto& test : _tests)
             if (strcmp(test->Name(), name) == 0)
                 test->Test();
     }

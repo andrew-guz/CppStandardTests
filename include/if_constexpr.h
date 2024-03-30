@@ -2,18 +2,13 @@
 
 #include "test_helper.h"
 
-class IfConstexpr : public TestBase
-{
+class IfConstexpr : public TestBase {
 public:
-    virtual const char* Name() const override
-    {
-        return "if constexpr";
-    }
+    virtual const char* Name() const override { return "if constexpr"; }
 
 protected:
     template<typename T>
-    static void print(const T& value)
-    {
+    static void print(const T& value) {
         if constexpr (std::is_same_v<T, int>)
             Print("is int");
         else if constexpr (std::is_same_v<T, bool>)
@@ -26,8 +21,7 @@ protected:
             Print("not supported type");
     }
 
-    virtual void TestImpl() override
-    {
+    virtual void TestImpl() override {
         print(5);
         print(false);
         print("Some chars");

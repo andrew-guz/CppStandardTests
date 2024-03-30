@@ -11,17 +11,10 @@ but in Release assert will not be compiled and warning will appear
 To prevent warning in Release use [[maybe_unused]] attribute
 */
 
-class MaybeUnused : public TestBase
-{
+class MaybeUnused : public TestBase {
 public:
-    virtual const char* Name() const override
-    {
-        return "maybe unused";
-    }
+    virtual const char* Name() const override { return "maybe unused"; }
 
 protected:
-    virtual void TestImpl() override
-    {
-        [[maybe_unused]] int i = 0;
-    }
+    virtual void TestImpl() override { [[maybe_unused]] int i = 0; }
 };

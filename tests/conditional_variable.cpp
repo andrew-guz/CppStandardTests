@@ -1,19 +1,18 @@
 #include "catch.hpp"
 
-#include <mutex>
-#include <condition_variable>
-#include <thread>
-#include <chrono>
-#include <execution>
 #include <algorithm>
+#include <chrono>
+#include <condition_variable>
+#include <execution>
 #include <latch>
+#include <mutex>
+#include <thread>
 
 using namespace std::chrono_literals;
 
 #include "templates/folding.h"
 
-void WorkerThread1(std::latch& started, std::mutex& m, std::condition_variable& c, const std::string& name)
-{
+void WorkerThread1(std::latch& started, std::mutex& m, std::condition_variable& c, const std::string& name) {
     PrintWithSpaces(name, ": started");
     std::unique_lock ul(m);
     PrintWithSpaces(name, ": mutex locked, will wait for notification");
@@ -23,8 +22,7 @@ void WorkerThread1(std::latch& started, std::mutex& m, std::condition_variable& 
     PrintWithSpaces(name, ": finished");
 }
 
-TEST_CASE("Notify and start one thread")
-{
+TEST_CASE("Notify and start one thread") {
     std::latch l(1);
     std::mutex m;
     std::condition_variable c;
@@ -34,8 +32,7 @@ TEST_CASE("Notify and start one thread")
     c.notify_one();
 }
 
-TEST_CASE("Notify and start several threads thread")
-{
+TEST_CASE("Notify and start several threads thread") {
     constexpr int threads_count = 5;
     std::latch l(threads_count);
     std::mutex m;
@@ -48,8 +45,7 @@ TEST_CASE("Notify and start several threads thread")
     c.notify_all();
 }
 
-struct Context
-{
+struct Context {
     int data;
     std::mutex mutex;
     std::condition_variable wait_for_result;
@@ -57,12 +53,10 @@ struct Context
     bool finish;
 };
 
-void WorkerThread2(std::latch& thread_started, Context& context)
-{
+void WorkerThread2(std::latch& thread_started, Context& context) {
     std::unique_lock ul{context.mutex};
     thread_started.count_down();
-    while(true)
-    {
+    while (true) {
         context.wait_for_result.wait(ul);
         if (context.finish)
             break;
@@ -71,8 +65,7 @@ void WorkerThread2(std::latch& thread_started, Context& context)
     }
 }
 
-TEST_CASE("Several thread communications")
-{
+TEST_CASE("Several thread communications") {
     std::latch l{1};
     Context c{5};
     std::jthread t(WorkerThread2, std::ref(l), std::ref(c));
@@ -100,7 +93,7 @@ TEST_CASE("Several thread communications")
         c.result_ready.wait(ul);
         REQUIRE(c.data == 49);
     }
-    
+
     c.finish = true;
     c.wait_for_result.notify_one();
 }

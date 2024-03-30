@@ -2,26 +2,19 @@
 
 #include "test_helper.h"
 
-namespace StructureBindingTest
-{
-    struct A
-    {
+namespace StructureBindingTest {
+    struct A {
         int x;
         int y;
     };
-};
+}; // namespace StructureBindingTest
 
-class StructureBinding : public TestBase
-{
+class StructureBinding : public TestBase {
 public:
-    virtual const char* Name() const override
-    {
-        return "structure binding";
-    }
+    virtual const char* Name() const override { return "structure binding"; }
 
 protected:
-    virtual void TestImpl() override
-    {
+    virtual void TestImpl() override {
         auto [i, j] = GetPair();
         Print(i, j);
         auto [b, s, a_ptr] = GetTuple();
@@ -29,13 +22,7 @@ protected:
     }
 
 private:
-    static std::pair<int, int> GetPair()
-    {
-        return std::make_pair(1, 2);
-    }
+    static std::pair<int, int> GetPair() { return std::make_pair(1, 2); }
 
-    static std::tuple<bool, std::string, std::shared_ptr<StructureBindingTest::A>> GetTuple()
-    {
-        return std::make_tuple(false, "Hello", std::make_shared<StructureBindingTest::A>(5, 6));
-    }
+    static std::tuple<bool, std::string, std::shared_ptr<StructureBindingTest::A>> GetTuple() { return std::make_tuple(false, "Hello", std::make_shared<StructureBindingTest::A>(5, 6)); }
 };
